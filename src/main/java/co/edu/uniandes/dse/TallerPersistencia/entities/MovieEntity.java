@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @Entity
 public class MovieEntity extends BaseEntity {
-    private Long id;
     private String title;
     private Integer releaseYear;
 }
