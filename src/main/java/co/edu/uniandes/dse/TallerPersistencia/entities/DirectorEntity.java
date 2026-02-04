@@ -11,11 +11,10 @@ import lombok.Data;
 @Data
 @Entity
 public class DirectorEntity extends BaseEntity {
+    @OneToMany(mappedBy = "director", fetch = FetchType.LAZY)
+    List<MovieEntity> movies = new ArrayList<>();
+
     private String name;
     private String nationality;
-
-    @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY)
-
-    List<MovieEntity> movieEntities = new ArrayList<>();
 }
 
