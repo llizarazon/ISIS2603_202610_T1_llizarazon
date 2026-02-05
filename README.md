@@ -15,6 +15,12 @@
 - La relación entre MovieEntity y ScriptEntity se modeló como OneToOne, dado que cada película posee un único guion y cada guion pertenece exclusivamente a una sola película. En esta relación, MovieEntity actúa como la entidad propietaria y almacena la clave foránea correspondiente. El uso de mappedBy en ScriptEntity indica que esta entidad no controla la relación. Además, se configuró el uso de cascade = CascadeType.ALL y orphanRemoval = true para asegurar que, al eliminar una película, el script asociado también sea eliminado automáticamente, manteniendo la integridad referencial y evitando registros huérfanos en la base de datos.
 
 
+### Prueba de integridad
+- Al intentar eliminar un Director que tiene películas asociadas sin usar cascada, la base de datos H2 arroja un error de violación de integridad referencial debido a la clave foránea existente en la tabla MovieEntity. Este comportamiento es deseable porque evita que se eliminen registros que aún son referenciados por otras entidades, garantizando la consistencia de los datos y preservando la integridad referencial del sistema.
+- - Mensaje exacto que arrojó el sistema: Violación de una restricción de Integridad Referencial: "FKBVS9LEGR1VASNEKR8Q39PHWNI: PUBLIC.MOVIE_ENTITY FOREIGN KEY(DIRECTOR_ID) REFERENCES PUBLIC.DIRECTOR_ENTITY(ID) (CAST(100 AS BIGINT))"
+Referential integrity constraint violation: "FKBVS9LEGR1VASNEKR8Q39PHWNI: PUBLIC.MOVIE_ENTITY FOREIGN KEY(DIRECTOR_ID) REFERENCES PUBLIC.DIRECTOR_ENTITY(ID) (CAST(100 AS BIGINT))"; SQL statement:
+DELETE FROM DIRECTOR_ENTITY WHERE ID = 100 [23503-224] 23503/23503 (Help)
+
 ## Enlaces de interés
 
 - [BookstoreBack](https://github.com/Uniandes-isis2603/bookstore-back) -> Repositorio de referencia para el Back
